@@ -2,12 +2,18 @@
     border: 1px solid rgb(59, 59, 59);
     border-radius: 15px;
     padding: 4rem 2rem;
-    margin: 3rem auto;
-    width: 40%;
+    padding-top: 1rem;
+    margin: 5rem auto;
+    width: 35%;
 }
 
 @media screen and (max-width: 800px) {
     .loginBorder {
         width: 80%;
     }
+}
+
+.loginMessage {
+    color: red;
+    text-align: center;
 }
