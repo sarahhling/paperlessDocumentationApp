@@ -12,7 +12,7 @@ function Title() {
   );
 }
 
-export function Login() {
+export default function Login() {
   const router = useRouter();
   const [loggedUsername, setUsername] = useState("");
   const [loggedPin, setPin] = useState("");
