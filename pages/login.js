@@ -52,14 +52,14 @@ export function Login() {
           onClick={async (context) => {
             context.preventDefault();
             const { data, error } = await supabase
-              .from("login-demo")
+              .from("Users")
               .select("username, pin")
               .match({
                 username: loggedUsername,
                 pin: loggedPin,
               });
             if (error) {
-              setLoginMessage("Username or password is incorrect");
+              setLoginMessage("Username or pin is incorrect");
             } else {
               setLoginMessage("SUCCESS");
             }
