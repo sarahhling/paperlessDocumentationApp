@@ -1,21 +1,12 @@
-import { useAuth } from "../lib/auth";
+import { useRouter } from "next/router";
 
-export default function Homepage() {
-  const { user, view, signOut } = useAuth();
-
-  // ...
-
+export default function Homepage(props) {
+  const router = useRouter();
+  const myData = router.loginData;
   return (
-    <Layout>
-      {user && (
-        <>
-          <h2>Hello {user.first_name}</h2>
-          <button type="button" className="button-inverse" onClick={signOut}>
-            Sign Out
-          </button>
-        </>
-      )}
-      {!user && <Auth view={view} supabaseClient={supabase} />}
-    </Layout>
+    <div>
+      <h1>Welcome</h1>
+      {console.log(myData)}
+    </div>
   );
 }

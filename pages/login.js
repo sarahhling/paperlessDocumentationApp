@@ -1,8 +1,9 @@
 import { useState } from "react";
 import styles from "../styles/Login.module.css";
-import { supabase } from "../utils/supabaseClient";
+import { useRouter } from "next/router";
+import { supabase } from "../utils/supabaseClient.js";
 
-export function Title() {
+function Title() {
   const titleStyle = { color: "rgb(95, 188, 255)" };
   return (
     <h1 className="text-center" style={titleStyle}>
@@ -12,9 +13,11 @@ export function Title() {
 }
 
 export function Login() {
+  const router = useRouter();
   const [loggedUsername, setUsername] = useState("");
   const [loggedPin, setPin] = useState("");
   const [loginMessage, setLoginMessage] = useState("");
+  const [firstName, setFirstName] = useState("");
 
   return (
     <div className={`container ${styles.loginBorder}`}>
@@ -64,14 +67,22 @@ export function Login() {
             } else if (data.length == 0) {
               setLoginMessage("Username or pin is incorrect");
             } else {
-              setLoginMessage("SUCCESS");
+              router.push(
+                {
+                  pathname: "/homepage",
+                  loginData: "passing info",
+                },
+                "/homepage"
+              );
             }
           }}
         >
           Log In
         </button>
       </div>
-      <span className={styles.loginMessage}>{loginMessage}</span>
+      <div className="mt-5 text-center">
+        <span className={styles.loginMessage}>{loginMessage}</span>
+      </div>
     </div>
   );
 }
