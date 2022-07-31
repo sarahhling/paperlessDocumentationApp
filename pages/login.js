@@ -70,7 +70,7 @@ export function Login() {
               router.push(
                 {
                   pathname: "/homepage",
-                  loginData: "passing info",
+                  query: { loginData: data[0]["first_name"] },
                 },
                 "/homepage"
               );
