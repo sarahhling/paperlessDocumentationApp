@@ -41,6 +41,7 @@ export function Login() {
           type="password"
           className="form-control"
           id="pin"
+          size="4"
           value={loggedPin}
           onChange={(e) => setPin(e.target.value)}
         />
@@ -53,12 +54,14 @@ export function Login() {
             context.preventDefault();
             const { data, error } = await supabase
               .from("Users")
-              .select("username, pin")
+              .select()
               .match({
                 username: loggedUsername,
                 pin: loggedPin,
               });
             if (error) {
+              setLoginMessage("Something went wrong");
+            } else if (data.length == 0) {
               setLoginMessage("Username or pin is incorrect");
             } else {
               setLoginMessage("SUCCESS");
