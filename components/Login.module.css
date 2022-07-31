@@ -1,0 +1,13 @@
+.loginBorder{
+    border: 1px solid rgb(59, 59, 59);
+    border-radius: 15px;
+    padding: 4rem 2rem;
+    margin: 3rem auto;
+    width: 40%;
+}
+
+@media screen and (max-width: 800px) {
+    .loginBorder {
+        width: 80%;
+    }
+}
