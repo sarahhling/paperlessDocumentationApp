@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { supabase } from "../utils/supabaseClient.js";
+import { supabase } from "../../../utils/supabaseClient.js";
 
 export default NextAuth({
   providers: [
@@ -36,24 +36,20 @@ export default NextAuth({
   },
 });
 
-
-function authenticateLogin({enteredUsername, enteredPin}) {
-    const { data, error } = await supabase
-        .from("Users")
-        .select()
-        .match({
-            username: enteredUsername,
-            pin: enteredPin,
-        });
-        if (error || data.length == 0){
-            return null;
-        } else {
-            return {
-                id :data.id,
-                firstName: data.first_name,
-                lastName : data.last_name,
-                username : data.username,
-                pin : data.pin
-            }
-        }
+async function authenticateLogin({ enteredUsername, enteredPin }) {
+  const { data, error } = await supabase.from("Users").select().match({
+    username: enteredUsername,
+    pin: enteredPin,
+  });
+  if (error || data.length == 0) {
+    return null;
+  } else {
+    return {
+      id: data.id,
+      firstName: data.first_name,
+      lastName: data.last_name,
+      username: data.username,
+      pin: data.pin,
+    };
+  }
 }
