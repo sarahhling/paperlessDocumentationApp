@@ -5,27 +5,44 @@ import { supabase } from "../../../utils/supabaseClient.js";
 export default NextAuth({
   providers: [
     CredentialsProvider({
+      id: "credentials",
       name: "credentials",
       credentials: {
-        username: { label: "username", type: "text" },
-        pin: { label: "PIN", type: "text" },
+        username: { label: "Username", type: "text" },
+        pin: { label: "PIN", type: "password" },
       },
-      authorize: (credentials) => {
-        return authenticateLogin(credentials.username, credentials.pin);
+      authorize: async (credentials) => {
+        const { data, error } = await supabase.from("Users").select().match({
+          username: credentials.username,
+          pin: credentials.pin,
+        });
+        if (error || data.length == 0) {
+          return null;
+        } else {
+          return {
+            id: data[0].id,
+            firstName: data[0].first_name,
+            lastName: data[0].last_name,
+            username: data[0].username,
+            pin: data[0].pin,
+          };
+        }
       },
     }),
   ],
   callbacks: {
-    jwt: ({ token, user }) => {
+    jwt: async ({ token, user }) => {
       if (user) {
-        token.id = user.id;
+        token.user = user;
       }
+
       return token;
     },
-    session: ({ token, session }) => {
+    session: ({ session, token }) => {
       if (token) {
-        session.id = token.id;
+        session.user = token.user;
       }
+
       return session;
     },
   },
@@ -36,20 +53,20 @@ export default NextAuth({
   },
 });
 
-async function authenticateLogin({ enteredUsername, enteredPin }) {
+async function authenticateLogin(enteredUsername, enteredPin) {
   const { data, error } = await supabase.from("Users").select().match({
     username: enteredUsername,
     pin: enteredPin,
   });
   if (error || data.length == 0) {
     return null;
-  } else {
-    return {
-      id: data.id,
-      firstName: data.first_name,
-      lastName: data.last_name,
-      username: data.username,
-      pin: data.pin,
-    };
   }
+  const user = {
+    id: data[0].id,
+    firstName: data[0].first_name,
+    lastName: data[0].last_name,
+    username: data[0].username,
+    pin: data[0].pin,
+  };
+  return user;
 }

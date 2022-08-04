@@ -1,14 +1,14 @@
-import { useRouter } from "next/router";
-import { useSession, signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/dist/client/router";
 
-export default function Homepage() {
+export default function Home() {
   const { data: session } = useSession();
-
-  const name = session ? session["user"]["name"] : "guest";
-  console.log("session", session);
-
   const router = useRouter();
+
+  const name = session ? session["user"]["firstName"] : "guest";
+
   const welcomeTitle = { textAlign: "center" };
+
   return (
     <div className="container pt-5">
       <div className="col-md-12 text-center">
@@ -19,7 +19,7 @@ export default function Homepage() {
           <button
             className="btn btn-outline-info"
             type="button"
-            onClick={() => signOut()}
+            onClick={() => signOut({ callbackUrl: "/api/auth/signin" })}
           >
             Log Out
           </button>
