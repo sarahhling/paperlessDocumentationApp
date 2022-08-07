@@ -1,38 +1,48 @@
-import { useRouter } from "next/router";
-import { useSession, signOut } from "next-auth/react";
+import { signOut, signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/dist/client/router";
 
-export default function Homepage() {
+export default function Home() {
   const { data: session } = useSession();
 
-  const name = session ? session["user"]["name"] : "guest";
-  console.log("session", session);
+  console.log(session);
 
-  const router = useRouter();
-  const welcomeTitle = { textAlign: "center" };
   return (
-    <div className="container pt-5">
+    <div className="container pt-5 text-center">
+      {session ? HomePage(session) : LoginPage()}
+    </div>
+  );
+}
+
+function HomePage({ session }) {
+  const welcomeTitle = { textAlign: "center" };
+
+  return (
+    <>
       <div className="col-md-12 text-center">
-        <h1 style={welcomeTitle}>Welcome {name}</h1>
+        <h1 style={welcomeTitle}>Welcome {session}!</h1>
       </div>
       <div className="col-md-12 text-center pt-3">
-        {session ? (
-          <button
-            className="btn btn-outline-info"
-            type="button"
-            onClick={() => signOut()}
-          >
-            Log Out
-          </button>
-        ) : (
-          <button
-            className="btn btn-outline-info"
-            type="button"
-            onClick={() => router.push("api/auth/signin")}
-          >
-            Log In
-          </button>
-        )}
+        <button
+          className="btn btn-outline-info"
+          type="button"
+          onClick={() => signOut({ callbackUrl: "/login" })}
+        >
+          Log Out
+        </button>
       </div>
-    </div>
+    </>
+  );
+}
+function LoginPage() {
+  const router = useRouter();
+
+  return (
+    <button
+      className="btn btn-outline-info"
+      type="button"
+      onClick={() => signIn()}
+    >
+      Log In
+    </button>
   );
 }
