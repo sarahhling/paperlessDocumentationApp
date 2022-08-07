@@ -12,10 +12,10 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Or access it here [https://nextjs-login-demo.vercel.app/](https://nextjs-login-demo.vercel.app/).
+Or access it here [https://paperless-documentation-app.vercel.app/login](https://paperless-documentation-app.vercel.app/login).
 
 ## TODO:
 
-- use custom log in page, possibly use index
-- fix issue causing log in to not redirect
-- redirect to alternate homepage?
+- add nav bar
+- connect form page to homepage
+- login error message for wrong credentials
