@@ -19,3 +19,4 @@ Or access it here [https://paperless-documentation-app.vercel.app/login](https:/
 - add nav bar
 - connect form page to homepage
 - login error message for wrong credentials
+- add user name to welcome message from session
