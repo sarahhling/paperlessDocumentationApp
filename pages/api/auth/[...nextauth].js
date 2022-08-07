@@ -12,21 +12,7 @@ export default NextAuth({
         pin: { label: "PIN", type: "password" },
       },
       authorize: async (credentials) => {
-        const { data, error } = await supabase.from("Users").select().match({
-          username: credentials.username,
-          pin: credentials.pin,
-        });
-        if (error || data.length == 0) {
-          return null;
-        } else {
-          return {
-            id: data[0].id,
-            firstName: data[0].first_name,
-            lastName: data[0].last_name,
-            username: data[0].username,
-            pin: data[0].pin,
-          };
-        }
+        return authenticateLogin(credentials.username, credentials.pin);
       },
     }),
   ],
@@ -38,7 +24,7 @@ export default NextAuth({
       }
       return token;
     },
-    session: ({ session, token }) => {
+    session: async ({ session, token }) => {
       if (token) {
         session.id = token.id;
         session.user = token.user;
@@ -46,14 +32,21 @@ export default NextAuth({
       return session;
     },
   },
+  pages: {
+    signIn: "/login",
+  },
   secret: "test",
   jwt: {
     secret: "test",
     encryption: true,
   },
+  session: {
+    maxAge: 7 * 24 * 60 * 60, //idle session expires in 7 days
+  },
 });
 
 async function authenticateLogin(enteredUsername, enteredPin) {
+  //write queries instead of supabase stuff
   const { data, error } = await supabase.from("Users").select().match({
     username: enteredUsername,
     pin: enteredPin,
@@ -66,7 +59,7 @@ async function authenticateLogin(enteredUsername, enteredPin) {
     firstName: data[0].first_name,
     lastName: data[0].last_name,
     username: data[0].username,
-    pin: data[0].pin,
+    role: data[0].role,
   };
   return user;
 }
