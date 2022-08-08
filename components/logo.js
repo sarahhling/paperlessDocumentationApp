@@ -5,7 +5,9 @@ export default function Logo({ pic }) {
   return (
     <div className="text-center pt-5">
       <Link href="/">
-        <Image src={pic} width={100} height={100} alt="logo" />
+        <a className="pe-auto">
+          <Image src={pic} width={100} height={100} alt="logo" />
+        </a>
       </Link>
     </div>
   );
