@@ -12,11 +12,11 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Or access it here [https://paperless-documentation-app.vercel.app/login](https://paperless-documentation-app.vercel.app/login).
+Or access it here [https://paperless-documentation-app.vercel.app](https://paperless-documentation-app.vercel.app).
 
 ## TODO:
 
 - add nav bar
 - connect form page to homepage
 - login error message for wrong credentials
-- add user name to welcome message from session
+- make login page naturally redirect to homepage
