@@ -1,5 +1,5 @@
-import { signOut, signIn, useSession } from "next-auth/react";
-
+import useSession from "next-auth/react";
+import { signIn } from "next-auth/react";
 const welcomeTitle = { textAlign: "center" };
 
 export default function secretPage() {
@@ -7,12 +7,12 @@ export default function secretPage() {
 
   return (
     <div className="container pt-5 text-center">
-      {status === "authenticated" ? accessAllowed(session) : accessDenied()}
+      {status === "authenticated" ? accessAllowed() : accessDenied()}
     </div>
   );
 }
 
-function accessAllowed(session) {
+function accessAllowed() {
   return (
     <>
       <div className="col-md-12 text-center">
