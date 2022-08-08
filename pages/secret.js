@@ -1,8 +1,8 @@
-import useSession from "next-auth/react";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+
 const welcomeTitle = { textAlign: "center" };
 
-export default function secretPage() {
+export default function SecretPage() {
   const { data: session, status } = useSession();
 
   return (
