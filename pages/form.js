@@ -11,20 +11,22 @@ function Form() {
 
     const {register, handleSubmit, errors, reset} = useForm();
     const onSubmit = async (data) => {
+      const frm = document.getElementsByName('product-form')[0];
+      frm.reset();
       data['user'] = current_user;
       console.log(data);
       await supabase.from('Items').insert([data]);
     }
  
     return (
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} name="product-form">
             <label for="name">Product Name</label>
             <input type="text" id="name" name="name" {...register('name', { required: true })} />
             <label for="price">Price</label>
             <input type="number" id= "price" name="price"  {...register('price', { required: true })} />
             <label for="quantity">Quantity</label>
             <input type="number" id="quanity" name="quantity" {...register('quantity', { required: true })} />
-            <button type="submit">Submit</button>
+            <button type="submit">Submit</button>s
        </form>
     );
 
