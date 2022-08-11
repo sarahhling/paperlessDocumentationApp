@@ -1,5 +1,5 @@
 import { signOut, signIn, useSession } from "next-auth/react";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 
 const welcomeTitle = { textAlign: "center" };
 
@@ -27,22 +27,22 @@ function HomePage(session) {
         <h1 style={welcomeTitle}>Welcome {session.user.firstName}!</h1>
       </div>
       <div className="col-md-12 text-center pt-3">
-      <button
-          className="btn btn-outline-info"
+        <button
+          className="btn btn-outline-info m3"
           type="button"
           onClick={() => router.push("/form")}
         >
           Send Forms
         </button>
         <button
-          className="btn btn-outline-info"
+          className="btn btn-outline-info m-3"
           type="button"
           onClick={() => router.push("/retrieve")}
         >
           Retrieve Forms
         </button>
         <button
-          className="btn btn-outline-info"
+          className="btn btn-outline-info m-1"
           type="button"
           onClick={() => signOut({ redirect: false })}
         >
