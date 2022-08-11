@@ -14,7 +14,7 @@ function RetrievePage() {
         console.log(data)
     }
 
-    if (session.user.username == data.username) {
+    if (user == data.username) {
         //Fetches data from the database
     }
 
