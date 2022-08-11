@@ -7,7 +7,11 @@ export default function Home() {
 
   return (
     <div className="container pt-5 text-center">
-      {status === "authenticated" ? HomePage(session) : LoginPage()}
+      {status === "authenticated"
+        ? HomePage(session)
+        : status === "loading"
+        ? LoadingPage()
+        : LoginPage()}
     </div>
   );
 }
@@ -32,6 +36,7 @@ function HomePage(session) {
     </>
   );
 }
+
 function LoginPage() {
   return (
     <>
@@ -49,4 +54,8 @@ function LoginPage() {
       </div>
     </>
   );
+}
+
+function LoadingPage() {
+  return <></>;
 }

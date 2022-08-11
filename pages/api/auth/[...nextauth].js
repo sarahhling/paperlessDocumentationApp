@@ -34,6 +34,7 @@ export default NextAuth({
   },
   pages: {
     signIn: "/login",
+    error: "/login",
   },
   secret: "test",
   jwt: {
@@ -52,7 +53,7 @@ async function authenticateLogin(enteredUsername, enteredPin) {
     pin: enteredPin,
   });
   if (error || data.length == 0) {
-    return null;
+    throw new Error("Incorrect username and/or PIN!");
   }
   const user = {
     id: data[0].id,

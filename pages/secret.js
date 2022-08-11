@@ -7,7 +7,11 @@ export default function SecretPage() {
 
   return (
     <div className="container pt-5 text-center">
-      {status === "authenticated" ? accessAllowed() : accessDenied()}
+      {status === "authenticated"
+        ? accessAllowed()
+        : status === "loading"
+        ? LoadingPage()
+        : accessDenied()}
     </div>
   );
 }
@@ -34,11 +38,15 @@ function accessDenied() {
         <button
           className="btn btn-outline-info"
           type="button"
-          onClick={() => signIn({ callbackUrl: "/pages/secretPage" })}
+          onClick={() => signIn({ callbackUrl: "/pages/secret" })}
         >
           Log In
         </button>
       </div>
     </>
   );
+}
+
+function LoadingPage() {
+  return <></>;
 }
