@@ -8,14 +8,11 @@ function Form() {
     current_user = session.user.username;
 
     const {register, handleSubmit, errors, reset} = useForm();
-    // const onSubmit = (data) => {
-    //   console.log(data);
-    // }
     const onSubmit = async (data) => {
       console.log(data);
       await supabase.from('Items').insert([current_user, data]);
     }
-
+ 
     return (
       <form onSubmit={handleSubmit(onSubmit)}>
             <label for="name">Product Name</label>
