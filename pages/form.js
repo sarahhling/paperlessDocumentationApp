@@ -5,12 +5,15 @@ import { supabase } from "../utils/supabaseClient.js";
 
 function Form() {
     const { data: session } = useSession();
-    current_user = session.user.username;
+    
+    const current_user = session.user.username;
+    console.log(current_user);
 
     const {register, handleSubmit, errors, reset} = useForm();
     const onSubmit = async (data) => {
+      data['user'] = current_user;
       console.log(data);
-      await supabase.from('Items').insert([current_user, data]);
+      await supabase.from('Items').insert([data]);
     }
  
     return (
