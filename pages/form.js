@@ -18,21 +18,21 @@ function Form() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor="name">Product Name</label>
+      <label for="name">Product Name</label>
       <input
         type="text"
         id="name"
         name="name"
         {...register("name", { required: true })}
       />
-      <label htmlFor="price">Price</label>
+      <label for="price">Price</label>
       <input
         type="number"
         id="price"
         name="price"
         {...register("price", { required: true })}
       />
-      <label htmlFor="quantity">Quantity</label>
+      <label for="quantity">Quantity</label>
       <input
         type="number"
         id="quanity"
