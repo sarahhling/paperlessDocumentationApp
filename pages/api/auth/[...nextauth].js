@@ -21,6 +21,7 @@ export default NextAuth({
       if (user) {
         token.id = user.id;
         token.user = user;
+        token.admin = user.admin;
       }
       return token;
     },
@@ -28,20 +29,20 @@ export default NextAuth({
       if (token) {
         session.id = token.id;
         session.user = token.user;
+        session.admin = token.admin;
       }
       return session;
     },
   },
   pages: {
     signIn: "/login",
-    error: "/login",
+    error: "/login", //might be a bad idea, does it redirect all errors to login?
   },
-  secret: "test",
-  jwt: {
-    secret: "test",
-    encryption: true,
-  },
+  secret: process.env.NEXTAUTH_SECRET,
   session: {
+    maxAge: 7 * 24 * 60 * 60, //idle session expires in 7 days
+  },
+  jwt: {
     maxAge: 7 * 24 * 60 * 60, //idle session expires in 7 days
   },
 });
@@ -61,6 +62,7 @@ async function authenticateLogin(enteredUsername, enteredPin) {
     lastName: data[0].last_name,
     username: data[0].username,
     role: data[0].role,
+    admin: data[0].admin,
   };
   return user;
 }

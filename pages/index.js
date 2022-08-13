@@ -5,11 +5,12 @@ const welcomeTitle = { textAlign: "center" };
 
 export default function Home() {
   const { data: session, status } = useSession();
+  const router = useRouter();
 
   return (
     <div className="container pt-5 text-center">
       {status === "authenticated"
-        ? HomePage(session)
+        ? HomePage(session, router)
         : status === "loading"
         ? LoadingPage()
         : LoginPage()}
@@ -17,8 +18,7 @@ export default function Home() {
   );
 }
 
-function HomePage(session) {
-  const router = useRouter();
+function HomePage(session, router) {
   console.log(session);
 
   return (
@@ -48,6 +48,17 @@ function HomePage(session) {
         >
           Log Out
         </button>
+        {session.user.admin && (
+          <div className="col-md-12 text-center pt-3">
+            <button
+              className="btn btn-outline-info m3"
+              type="button"
+              onClick={() => router.push("/admin")}
+            >
+              Admin Page
+            </button>
+          </div>
+        )}
       </div>
     </>
   );
