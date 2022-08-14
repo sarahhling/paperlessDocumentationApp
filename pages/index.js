@@ -1,15 +1,16 @@
 import { signOut, signIn, useSession } from "next-auth/react";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 
 const welcomeTitle = { textAlign: "center" };
 
 export default function Home() {
   const { data: session, status } = useSession();
+  const router = useRouter();
 
   return (
     <div className="container pt-5 text-center">
       {status === "authenticated"
-        ? HomePage(session)
+        ? HomePage(session, router)
         : status === "loading"
         ? LoadingPage()
         : LoginPage()}
@@ -17,8 +18,7 @@ export default function Home() {
   );
 }
 
-function HomePage(session) {
-  const router = useRouter();
+function HomePage(session, router) {
   console.log(session);
 
   return (
@@ -27,27 +27,38 @@ function HomePage(session) {
         <h1 style={welcomeTitle}>Welcome {session.user.firstName}!</h1>
       </div>
       <div className="col-md-12 text-center pt-3">
-      <button
-          className="btn btn-outline-info"
+        <button
+          className="btn btn-outline-info m3"
           type="button"
           onClick={() => router.push("/form")}
         >
           Send Forms
         </button>
         <button
-          className="btn btn-outline-info"
+          className="btn btn-outline-info m-3"
           type="button"
           onClick={() => router.push("/retrieve")}
         >
           Retrieve Forms
         </button>
         <button
-          className="btn btn-outline-info"
+          className="btn btn-outline-info m-1"
           type="button"
           onClick={() => signOut({ redirect: false })}
         >
           Log Out
         </button>
+        {session.user.admin && (
+          <div className="col-md-12 text-center pt-3">
+            <button
+              className="btn btn-outline-info m3"
+              type="button"
+              onClick={() => router.push("/admin")}
+            >
+              Admin Page
+            </button>
+          </div>
+        )}
       </div>
     </>
   );
