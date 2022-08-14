@@ -46,6 +46,9 @@ function RetrievePage() {
             ))}
         </div>
     );
+
 }
 
-export default RetrievePage;
+function LoadingPage() {
+  return <></>;
+}
