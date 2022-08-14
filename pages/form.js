@@ -27,7 +27,7 @@ function Form() {
       <div className="row justify-content-center my-5">
         <div className="col-lg-8">
           <form onSubmit={handleSubmit(onSubmit)} name="product-form">
-            <label for="name">Product Name</label>
+            <label htmlFor="name">Product Name</label>
             <input
               className="form-control mb-4"
               type="text"
@@ -35,7 +35,7 @@ function Form() {
               name="name"
               {...register("name", { required: true })}
             />
-            <label for="price">Price</label>
+            <label htmlFor="price">Price</label>
             <input
               className="form-control mb-4"
               type="number"
@@ -44,7 +44,7 @@ function Form() {
               step="0.01"
               {...register("price", { required: true })}
             />
-            <label for="quantity">Quantity</label>
+            <label htmlFor="quantity">Quantity</label>
             <input
               className="form-control mb-4"
               type="number"
