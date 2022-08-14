@@ -1,0 +1,18 @@
+.retrievetable {
+    border: solid;
+    border-collapse: collapse;
+    width: 50%;
+    margin: auto;
+    table-layout:fixed;
+}
+
+.retrieveth{
+    border: 1px;
+    text-align: left;
+    padding: 8px;
+    width:25%;;
+}
+
+.itemRow:nth-child() {
+    background-color:grey;
+}
