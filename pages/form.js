@@ -37,7 +37,7 @@ function FormPage(username, register, handleSubmit, errors, reset) {
     console.log(errors, e)
     console.log("error")
   };
-  
+
   return (
     <div className={`${styles.formBorder}`}>
       <div className="row justify-content-center my-5">

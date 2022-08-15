@@ -17,6 +17,9 @@ Or access it here [https://paperless-documentation-app.vercel.app](https://paper
 ## TODO:
 
 - add nav bar
-- connect form page to homepage
-- login error message for wrong credentials
-- make login page naturally redirect to homepage
+- remove useSession if middleware implemented
+- unauthorized access to /admin should redirect to /
+- create a login homepage for logged in users
+- success/failure message after form submission
+- render approved column in retrieval form
+- pagination for retrieval columns, either next page or load more (tumblr/twitter style)
