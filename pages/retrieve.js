@@ -6,9 +6,7 @@ import styles from "../styles/Retrieve.module.css";
 export default function RetrievePage() {
   //Checks for permission to access the page
   const { data: session } = useSession();
-
   const [posts, setPosts] = useState([]);
-
   const [username, setUsername] = useState();
 
   useEffect(() => {
@@ -23,19 +21,21 @@ export default function RetrievePage() {
     fetchdata();
     // can disable
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [username]);
 
   // Memoized function
   // Set user as dependency variable from memoized function
   // Memo gets passed into fetchdata
   const fetchdata = useCallback(async () => {
     // SQL Select items that the user inputted
-    const { data, error } = await supabase
-      .from("Items")
-      .select()
-      .eq("user", username);
-    console.log(data);
-    setPosts(data);
+    if (username) {
+      const { data, error } = await supabase
+        .from("Items")
+        .select()
+        .eq("user", username);
+      console.log(data);
+      setPosts(data);
+    }
   }, [username]);
 
   // async function fetchdata() {

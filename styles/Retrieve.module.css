@@ -1,16 +1,15 @@
 .retrievetable {
-    border: solid;
+    border: 1px solid rgb(122, 122, 122);
     border-collapse: collapse;
     max-width: 90%;
     min-width: 60%;
     margin: auto;
     table-layout:fixed;
-    border-color: #0070f3;
 }
 
 .retrieveth{
     border: 1px;
-    text-align: left;
+    text-align: center;
     padding: 8px;
     width:25%;
 }
