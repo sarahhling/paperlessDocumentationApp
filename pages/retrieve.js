@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useSession } from "next-auth/react";
 import { supabase } from "../utils/supabaseClient.js";
 import styles from "../styles/Retrieve.module.css";
@@ -11,11 +11,18 @@ function RetrievePage() {
 
     const [posts, setPosts] = useState([]);
 
+    // Interdeterministic
     useEffect( () => {
+        // useCallBack
         fetchdata()
+        // can disable 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    async function fetchdata() {
+    // Memoized function
+    // Set user as dependency variable from memoized function
+    // Memo gets passed into fetchdata
+    const fetchdata = useCallback( async () => {
         // SQL Select items that the user inputted 
         const { data, error } = await supabase
         .from('Items')
@@ -23,8 +30,19 @@ function RetrievePage() {
         .eq('user', user)
         console.log(data)
         setPosts(data);
-    }
+    }, [user])
 
+    // async function fetchdata() {
+    //     // SQL Select items that the user inputted 
+    //     const { data, error } = await supabase
+    //     .from('Items')
+    //     .select()
+    //     .eq('user', user)
+    //     console.log(data)
+    //     setPosts(data);
+    // }
+
+    //
     return (
         <div className="App">
             <table className={styles.retrievetable}>
@@ -34,7 +52,9 @@ function RetrievePage() {
             </table>
             
             {posts.map(post => (
-                <div key="{post.id}">
+                // Post id passed in as string -> read the id 
+                // No more duplicate key warning
+                <div key={post.id}>
                     <table className={styles.retrievetable}>
                         <tr className={styles.itemRow}>
                             <td className={styles.retrieveth}>{post.name}</td>
