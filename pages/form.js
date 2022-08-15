@@ -7,7 +7,12 @@ import { useState, useEffect } from "react";
 
 export default function Form() {
   const { data: session, status } = useSession();
-  const { register, handleSubmit, errors, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
   const [username, setUsername] = useState();
 
   useEffect(() => {
@@ -15,28 +20,29 @@ export default function Form() {
   }, [session]);
 
   return status === "authenticated"
-    ? FormPage(username, register, handleSubmit)
+    ? FormPage(username, register, handleSubmit, errors, reset)
     : LoadingPage();
 }
 
-function FormPage(username, register, handleSubmit) {
+function FormPage(username, register, handleSubmit, errors, reset) {
   const current_user = username;
+  const redStyle = { color: 'red' };
 
   const onSubmit = async (data) => {
-    console.log("Submitting data...");
     data["user"] = current_user;
     console.log(data);
     await supabase.from("Items").insert(data);
   };
-  const onError = (errors, e) => console.log(errors, e);
-
+  const onError = (errors, e) => {
+    console.log(errors, e)
+    console.log("error")
+  };
+  
   return (
     <div className={`${styles.formBorder}`}>
       <div className="row justify-content-center my-5">
         <div className="col-lg-8">
-          <form
-            onSubmit={handleSubmit(onSubmit, onError)}
-          >
+          <form onSubmit={handleSubmit(onSubmit, onError)}>
             <label className="form-label" htmlFor="name">
               Product Name
             </label>
@@ -47,6 +53,8 @@ function FormPage(username, register, handleSubmit) {
               name="name"
               {...register("name", { required: true })}
             />
+            {errors.name && <p style={ redStyle }>Please check Product Name</p>}
+
             <label className="col-form-label" htmlFor="price">
               Price
             </label>
@@ -58,6 +66,8 @@ function FormPage(username, register, handleSubmit) {
               step="0.01"
               {...register("price", { required: true })}
             />
+            {errors.price && <p style={ redStyle }>Please check Price</p>}
+
             <label className="form-label" htmlFor="quantity">
               Quantity
             </label>
@@ -68,6 +78,8 @@ function FormPage(username, register, handleSubmit) {
               name="quantity"
               {...register("quantity", { required: true })}
             />
+            {errors.quantity && <p style={ redStyle }>Please check Quantity</p>}
+
             <div className="mb-4 text-center">
               <button className="btn btn-outline-info" type="submit">
                 Submit
