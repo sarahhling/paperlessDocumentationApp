@@ -10,7 +10,9 @@ function Form() {
   const [username, setUsername] = useState();
 
   useEffect(() => {
-    setUsername(session?.user?.username);
+    if (session) {
+      setUsername(session?.user?.username);
+    }
   }, [session]);
 
   const { register, handleSubmit, errors, reset } = useForm();
