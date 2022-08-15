@@ -26,7 +26,6 @@ export default function Form() {
 
 function FormPage(username, register, handleSubmit, errors, reset) {
   const current_user = username;
-  const redStyle = { color: 'red' };
 
   const onSubmit = async (data) => {
     data["user"] = current_user;
@@ -53,7 +52,7 @@ function FormPage(username, register, handleSubmit, errors, reset) {
               name="name"
               {...register("name", { required: true })}
             />
-            {errors.name && <p style={ redStyle }>Please check Product Name</p>}
+            {errors.name && <p className="text-danger">Please check Product Name</p>}
 
             <label className="col-form-label" htmlFor="price">
               Price
@@ -66,7 +65,7 @@ function FormPage(username, register, handleSubmit, errors, reset) {
               step="0.01"
               {...register("price", { required: true })}
             />
-            {errors.price && <p style={ redStyle }>Please check Price</p>}
+            {errors.price && <p className="text-danger">Please check Price</p>}
 
             <label className="form-label" htmlFor="quantity">
               Quantity
@@ -78,7 +77,7 @@ function FormPage(username, register, handleSubmit, errors, reset) {
               name="quantity"
               {...register("quantity", { required: true })}
             />
-            {errors.quantity && <p style={ redStyle }>Please check Quantity</p>}
+            {errors.quantity && <p className="text-danger">Please check Quantity</p>}
 
             <div className="mb-4 text-center">
               <button className="btn btn-outline-info" type="submit">
