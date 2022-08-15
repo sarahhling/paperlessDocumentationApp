@@ -20,4 +20,6 @@ Or access it here [https://paperless-documentation-app.vercel.app](https://paper
 - remove useSession if middleware implemented
 - unauthorized access to /admin should redirect to /
 - create a login homepage for logged in users
-- implement retrieve
+- success/failure message after form submission
+- render approved column in retrieval form
+- pagination for retrieval columns, either next page or load more (tumblr/twitter style)
