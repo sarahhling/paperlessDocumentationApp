@@ -52,9 +52,13 @@ export default function RetrievePage() {
   return (
     <div className="App">
       <table className={styles.retrievetable}>
-        <th className={styles.retrieveth}>Item</th>
-        <th className={styles.retrieveth}>Price</th>
-        <th className={styles.retrieveth}>Quantity</th>
+        <thead>
+          <tr>
+            <th className={styles.retrieveth}>Item</th>
+            <th className={styles.retrieveth}>Price</th>
+            <th className={styles.retrieveth}>Quantity</th>
+          </tr>
+        </thead>
       </table>
 
       {posts.map((post) => (
@@ -62,11 +66,13 @@ export default function RetrievePage() {
         // No more duplicate key warning
         <div key={post.id}>
           <table className={styles.retrievetable}>
-            <tr className={styles.itemRow}>
-              <td className={styles.retrieveth}>{post.name}</td>
-              <td className={styles.retrieveth}> {post.price}</td>
-              <td className={styles.retrieveth}>{post.quantity}</td>
-            </tr>
+            <tbody>
+              <tr className={styles.itemRow}>
+                <td className={styles.retrieveth}>{post.name}</td>
+                <td className={styles.retrieveth}> {post.price}</td>
+                <td className={styles.retrieveth}>{post.quantity}</td>
+              </tr>
+            </tbody>
           </table>
         </div>
       ))}
