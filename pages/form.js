@@ -31,12 +31,11 @@ function FormPage(username, register, handleSubmit, errors, reset) {
     data["user"] = current_user;
     console.log(data);
     await supabase.from("Items").insert(data);
-    //e.target.reset()
-    reset()
+    reset();
   };
   const onError = (errors, e) => {
-    console.log(errors, e)
-    console.log("error")
+    console.log(errors, e);
+    console.log("error");
   };
 
   return (
@@ -44,6 +43,20 @@ function FormPage(username, register, handleSubmit, errors, reset) {
       <div className="row justify-content-center my-5">
         <div className="col-lg-8">
           <form onSubmit={handleSubmit(onSubmit, onError)}>
+            <label className="form-label" htmlFor="date">
+              Date
+            </label>
+            <input
+              className="form-control mb-4"
+              type="date"
+              id="date"
+              name="date"
+              {...register("date", { required: true })}
+            />
+            {errors.date && (
+              <p className="text-danger">Please check Date</p>
+            )}
+
             <label className="form-label" htmlFor="name">
               Product Name
             </label>
@@ -54,7 +67,9 @@ function FormPage(username, register, handleSubmit, errors, reset) {
               name="name"
               {...register("name", { required: true })}
             />
-            {errors.name && <p className="text-danger">Please check Product Name</p>}
+            {errors.name && (
+              <p className="text-danger">Please check Product Name</p>
+            )}
 
             <label className="col-form-label" htmlFor="price">
               Price
@@ -79,7 +94,9 @@ function FormPage(username, register, handleSubmit, errors, reset) {
               name="quantity"
               {...register("quantity", { required: true })}
             />
-            {errors.quantity && <p className="text-danger">Please check Quantity</p>}
+            {errors.quantity && (
+              <p className="text-danger">Please check Quantity</p>
+            )}
 
             <div className="mb-4 text-center">
               <button className="btn btn-outline-info" type="submit">
