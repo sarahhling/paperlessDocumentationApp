@@ -26,16 +26,16 @@ export default function Form() {
 
 function FormPage(username, register, handleSubmit, errors, reset) {
   const current_user = username;
-  const redStyle = { color: 'red' };
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data, e) => {
     data["user"] = current_user;
     console.log(data);
     await supabase.from("Items").insert(data);
+    reset();
   };
   const onError = (errors, e) => {
-    console.log(errors, e)
-    console.log("error")
+    console.log(errors, e);
+    console.log("error");
   };
 
   return (
@@ -43,6 +43,20 @@ function FormPage(username, register, handleSubmit, errors, reset) {
       <div className="row justify-content-center my-5">
         <div className="col-lg-8">
           <form onSubmit={handleSubmit(onSubmit, onError)}>
+            <label className="form-label" htmlFor="date">
+              Date
+            </label>
+            <input
+              className="form-control mb-4"
+              type="date"
+              id="date"
+              name="date"
+              {...register("date", { required: true })}
+            />
+            {errors.date && (
+              <p className="text-danger">Please check Date</p>
+            )}
+
             <label className="form-label" htmlFor="name">
               Product Name
             </label>
@@ -53,7 +67,9 @@ function FormPage(username, register, handleSubmit, errors, reset) {
               name="name"
               {...register("name", { required: true })}
             />
-            {errors.name && <p style={ redStyle }>Please check Product Name</p>}
+            {errors.name && (
+              <p className="text-danger">Please check Product Name</p>
+            )}
 
             <label className="col-form-label" htmlFor="price">
               Price
@@ -66,7 +82,7 @@ function FormPage(username, register, handleSubmit, errors, reset) {
               step="0.01"
               {...register("price", { required: true })}
             />
-            {errors.price && <p style={ redStyle }>Please check Price</p>}
+            {errors.price && <p className="text-danger">Please check Price</p>}
 
             <label className="form-label" htmlFor="quantity">
               Quantity
@@ -78,7 +94,9 @@ function FormPage(username, register, handleSubmit, errors, reset) {
               name="quantity"
               {...register("quantity", { required: true })}
             />
-            {errors.quantity && <p style={ redStyle }>Please check Quantity</p>}
+            {errors.quantity && (
+              <p className="text-danger">Please check Quantity</p>
+            )}
 
             <div className="mb-4 text-center">
               <button className="btn btn-outline-info" type="submit">
