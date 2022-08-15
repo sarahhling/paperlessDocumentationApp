@@ -5,31 +5,47 @@ import { useForm } from "react-hook-form";
 import { supabase } from "../utils/supabaseClient.js";
 import { useState, useEffect } from "react";
 
-function Form() {
-  const { data: session } = useSession();
+export default function Form() {
+  const { data: session, status } = useSession();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
   const [username, setUsername] = useState();
 
   useEffect(() => {
-    if (session) {
-      setUsername(session?.user?.username);
-    }
+    setUsername(session?.user?.username);
   }, [session]);
 
-  const { register, handleSubmit, errors, reset } = useForm();
+  return status === "authenticated"
+    ? FormPage(username, register, handleSubmit, errors, reset)
+    : LoadingPage();
+}
+
+function FormPage(username, register, handleSubmit, errors, reset) {
+  const current_user = username;
+  const redStyle = { color: 'red' };
+
   const onSubmit = async (data) => {
-    const frm = document.getElementsByName("product-form")[0];
-    frm.reset();
-    data["user"] = username;
+    data["user"] = current_user;
     console.log(data);
-    await supabase.from("Items").insert([data]);
+    await supabase.from("Items").insert(data);
+  };
+  const onError = (errors, e) => {
+    console.log(errors, e)
+    console.log("error")
   };
 
   return (
     <div className={`${styles.formBorder}`}>
       <div className="row justify-content-center my-5">
         <div className="col-lg-8">
-          <form onSubmit={handleSubmit(onSubmit)} name="product-form">
-            <label htmlFor="name">Product Name</label>
+          <form onSubmit={handleSubmit(onSubmit, onError)}>
+            <label className="form-label" htmlFor="name">
+              Product Name
+            </label>
             <input
               className="form-control mb-4"
               type="text"
@@ -37,7 +53,11 @@ function Form() {
               name="name"
               {...register("name", { required: true })}
             />
-            <label htmlFor="price">Price</label>
+            {errors.name && <p style={ redStyle }>Please check Product Name</p>}
+
+            <label className="col-form-label" htmlFor="price">
+              Price
+            </label>
             <input
               className="form-control mb-4"
               type="number"
@@ -46,7 +66,11 @@ function Form() {
               step="0.01"
               {...register("price", { required: true })}
             />
-            <label htmlFor="quantity">Quantity</label>
+            {errors.price && <p style={ redStyle }>Please check Price</p>}
+
+            <label className="form-label" htmlFor="quantity">
+              Quantity
+            </label>
             <input
               className="form-control mb-4"
               type="number"
@@ -54,11 +78,10 @@ function Form() {
               name="quantity"
               {...register("quantity", { required: true })}
             />
+            {errors.quantity && <p style={ redStyle }>Please check Quantity</p>}
+
             <div className="mb-4 text-center">
-              <button
-                type="submit"
-                className="btn btn-outline-info text-center"
-              >
+              <button className="btn btn-outline-info" type="submit">
                 Submit
               </button>
             </div>
@@ -69,4 +92,6 @@ function Form() {
   );
 }
 
-export default Form;
+function LoadingPage() {
+  return <></>;
+}
