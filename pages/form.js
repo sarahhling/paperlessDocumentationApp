@@ -27,10 +27,12 @@ export default function Form() {
 function FormPage(username, register, handleSubmit, errors, reset) {
   const current_user = username;
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data, e) => {
     data["user"] = current_user;
     console.log(data);
     await supabase.from("Items").insert(data);
+    //e.target.reset()
+    reset()
   };
   const onError = (errors, e) => {
     console.log(errors, e)
