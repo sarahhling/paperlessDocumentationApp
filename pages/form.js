@@ -15,24 +15,27 @@ export default function Form() {
   }, [session]);
 
   return status === "authenticated"
-    ? FormPage(username, register)
+    ? FormPage(username, register, handleSubmit)
     : LoadingPage();
 }
 
-function FormPage(username, register) {
+function FormPage(username, register, handleSubmit) {
   const current_user = username;
-  console.log(current_user);
+
+  const onSubmit = async (data) => {
+    console.log("Submitting data...");
+    data["user"] = current_user;
+    console.log(data);
+    await supabase.from("Items").insert(data);
+  };
+  const onError = (errors, e) => console.log(errors, e);
 
   return (
     <div className={`${styles.formBorder}`}>
       <div className="row justify-content-center my-5">
         <div className="col-lg-8">
           <form
-            onSubmit={async (data) => {
-              data["user"] = current_user;
-              console.log(data);
-              await supabase.from("Items").insert(data);
-            }}
+            onSubmit={handleSubmit(onSubmit, onError)}
           >
             <label className="form-label" htmlFor="name">
               Product Name
