@@ -1,8 +1,9 @@
 .formBorder {
     border: 1px solid rgb(59, 59, 59);
-    border-radius: 8px;
-    padding: 2rem;
+    border-radius: 15px;
+    padding: 0.5rem;
     margin: auto;
-    width: 50%;
+    width: 450px;
     margin-top: 1em;
 }
+

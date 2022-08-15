@@ -55,7 +55,12 @@ function Form() {
               {...register("quantity", { required: true })}
             />
             <div className="mb-4 text-center">
-              <button type="submit">Submit</button>
+              <button
+                type="submit"
+                className="btn btn-outline-info text-center"
+              >
+                Submit
+              </button>
             </div>
           </form>
         </div>
