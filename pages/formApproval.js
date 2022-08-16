@@ -28,9 +28,14 @@ export default function FormApprovalPage() {
     setPosts(data);
   }, []);
 
-  function setApproved(form) {
-    console.log("approving");
-    console.log(form);
+  async function setApproved(form) {
+    const { data, error } = await supabase
+      .from("Items")
+      .update({ approved: true })
+      .match({ id: form.id });
+    if (error || data.length == 0) {
+      alert("Could not update entry");
+    }
   }
 
   // async function fetchdata() {
@@ -49,6 +54,8 @@ export default function FormApprovalPage() {
       <table className={styles.retrievetable}>
         <thead>
           <tr>
+            <th className={styles.retrieveth}>Date</th>
+            <th className={styles.retrieveth}>Submitted By</th>
             <th className={styles.retrieveth}>Item</th>
             <th className={styles.retrieveth}>Price</th>
             <th className={styles.retrieveth}>Quantity</th>
@@ -64,6 +71,8 @@ export default function FormApprovalPage() {
           <table className={styles.retrievetable}>
             <tbody>
               <tr className={styles.itemRow}>
+                <td className={styles.retrieveth}>{post.date}</td>
+                <td className={styles.retrieveth}>{post.user}</td>
                 <td className={styles.retrieveth}>{post.name}</td>
                 <td className={styles.retrieveth}> {post.price}</td>
                 <td className={styles.retrieveth}>{post.quantity}</td>
