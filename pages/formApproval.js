@@ -1,4 +1,3 @@
-import MyTable from "../components/table";
 import { useMemo, useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient.js";
 
