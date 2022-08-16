@@ -39,72 +39,68 @@ function FormPage(username, register, handleSubmit, errors, reset) {
   };
 
   return (
-    <div className={`${styles.formBorder}`}>
-      <div className="row justify-content-center my-5">
-        <div className="col-lg-8">
-          <form onSubmit={handleSubmit(onSubmit, onError)}>
-            <label className="form-label" htmlFor="date">
-              Date
-            </label>
-            <input
-              className="form-control mb-4"
-              type="date"
-              id="date"
-              name="date"
-              {...register("date", { required: true })}
-            />
-            {errors.date && (
-              <p className="text-danger">Please check Date</p>
-            )}
+    <div className="row justify-content-center my-5">
+      <div className="col-lg-8">
+        <form onSubmit={handleSubmit(onSubmit, onError)}>
+          <label className="form-label" htmlFor="date">
+            Date
+          </label>
+          <input
+            className="form-control mb-4"
+            type="date"
+            id="date"
+            name="date"
+            {...register("date", { required: true })}
+          />
+          {errors.date && <p className="text-danger">Please check Date</p>}
 
-            <label className="form-label" htmlFor="name">
-              Product Name
-            </label>
-            <input
-              className="form-control mb-4"
-              type="text"
-              id="name"
-              name="name"
-              {...register("name", { required: true })}
-            />
-            {errors.name && (
-              <p className="text-danger">Please check Product Name</p>
-            )}
+          <label className="form-label" htmlFor="name">
+            Product Name
+          </label>
+          <input
+            className="form-control mb-4"
+            type="text"
+            id="name"
+            name="name"
+            {...register("name", { required: true })}
+          />
+          {errors.name && (
+            <p className="text-danger">Please check Product Name</p>
+          )}
 
-            <label className="col-form-label" htmlFor="price">
-              Price
-            </label>
-            <input
-              className="form-control mb-4"
-              type="number"
-              id="price"
-              name="price"
-              step="0.01"
-              {...register("price", { required: true })}
-            />
-            {errors.price && <p className="text-danger">Please check Price</p>}
+          <label className="col-form-label" htmlFor="price">
+            Price
+          </label>
+          <input
+            className="form-control mb-4"
+            type="number"
+            id="price"
+            name="price"
+            step="0.01"
+            {...register("price", { required: true })}
+          />
+          {errors.price && <p className="text-danger">Please check Price</p>}
 
-            <label className="form-label" htmlFor="quantity">
-              Quantity
-            </label>
-            <input
-              className="form-control mb-4"
-              type="number"
-              id="quanity"
-              name="quantity"
-              {...register("quantity", { required: true })}
-            />
-            {errors.quantity && (
-              <p className="text-danger">Please check Quantity</p>
-            )}
+          <label className="form-label" htmlFor="quantity">
+            Quantity
+          </label>
+          <input
+            className="form-control mb-4"
+            type="number"
+            id="quanity"
+            name="quantity"
+            {...register("quantity", { required: true })}
+          />
+          {errors.quantity && (
+            <p className="text-danger">Please check Quantity</p>
+          )}
 
-            <div className="mb-4 text-center">
-              <button className="btn btn-outline-info" type="submit">
-                Submit
-              </button>
-            </div>
-          </form>
-        </div>
+          <div className="mb-4 text-center">
+            <button className="btn btn-outline-info" type="submit">
+              Submit
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
