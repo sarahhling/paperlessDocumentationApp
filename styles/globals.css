@@ -27,3 +27,14 @@ a {
     background: rgb(18, 14, 24);
   }
 }
+
+@media (prefers-color-scheme: light) {
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    color: white;
+    background: rgb(18, 14, 24);
+  }
+}
