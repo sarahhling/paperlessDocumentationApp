@@ -4,7 +4,10 @@ export default withAuth({
   callbacks: {
     authorized({ req, token }) {
       // `/admin` requires admin role
-      if (req.nextUrl.pathname === "/admin") {
+      if (
+        req.nextUrl.pathname === "/admin" ||
+        req.nextUrl.pathname === "/formApproval"
+      ) {
         return token?.admin;
       }
       return !!token;
@@ -13,4 +16,6 @@ export default withAuth({
 });
 
 //all paths requiring login, will redirect to login page
-export const config = { matcher: ["/admin", "/form", "/retrieve", "/secret"] };
+export const config = {
+  matcher: ["/admin", "/form", "/retrieve", "/secret", "/formApproval"],
+};

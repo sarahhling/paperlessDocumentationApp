@@ -34,13 +34,24 @@ function HomePage(session, router) {
         >
           Send Forms
         </button>
-        <button
-          className="btn btn-outline-info m-3"
-          type="button"
-          onClick={() => router.push("/retrieve")}
-        >
-          Retrieve Forms
-        </button>
+
+        {session.user.admin ? (
+          <button
+            className="btn btn-outline-info m-3"
+            type="button"
+            onClick={() => router.push("/formApproval")}
+          >
+            Approve Forms
+          </button>
+        ) : (
+          <button
+            className="btn btn-outline-info m-3"
+            type="button"
+            onClick={() => router.push("/retrieve")}
+          >
+            Retrieve Forms
+          </button>
+        )}
         <button
           className="btn btn-outline-info m-1"
           type="button"
@@ -68,7 +79,7 @@ function LoginPage() {
   return (
     <>
       <div className="col-md-12 text-center">
-        <h1 style={welcomeTitle}>You Are Not Signed In, Pal</h1>
+        <h1 style={welcomeTitle}>You Are Not Signed In</h1>
       </div>
       <div className="col-md-12 text-center pt-3">
         <button
