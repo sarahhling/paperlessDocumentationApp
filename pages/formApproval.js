@@ -31,17 +31,6 @@ export default function FormApprovalPage() {
   }, []);
 
   //update row as approved
-  async function approveRow(form) {
-    console.log("updating");
-    const { data, error } = await supabase
-      .from("Items")
-      .update({ approved: true, approved_by: username })
-      .match({ id: form.id });
-    if (error || data.length == 0) {
-      alert("Could not update entry");
-      //do a popup instead
-    }
-  }
 
   return (
     <div className="App">
@@ -69,7 +58,7 @@ export default function FormApprovalPage() {
                 <td className={styles.retrieveth}> {post.price}</td>
                 <td className={styles.retrieveth}>{post.quantity}</td>
                 <td className={styles.retrieveth}>
-                  <ApproveButton buttonFunction={approveRow(post)} />
+                  <ApproveButton data={post} user={username} />
                 </td>
               </tr>
             </tbody>
