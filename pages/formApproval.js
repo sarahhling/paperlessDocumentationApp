@@ -46,7 +46,6 @@ export default function FormApprovalPage() {
           </tr>
         </thead>
       </table>
-
       {posts.map((post) => (
         <div key={post.id}>
           <table className={styles.retrievetable}>
