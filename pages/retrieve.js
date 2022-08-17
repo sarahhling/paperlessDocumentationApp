@@ -9,6 +9,19 @@ export default function RetrievePage() {
   const [posts, setPosts] = useState([]);
   const [username, setUsername] = useState();
 
+  function IsApproved(props) {
+    const isApproved = props.approved;
+    const yesStyle = { color: 'green'};
+    const noStyle = {color: 'red'}
+    if (isApproved) {
+      return <h3 style={ yesStyle }>YES</h3>
+    }
+
+    else {
+      return <h3 style={ noStyle }>NO</h3>
+    }
+  }
+
   useEffect(() => {
     if (session) {
       setUsername(session?.user?.username);
@@ -37,18 +50,6 @@ export default function RetrievePage() {
       setPosts(data);
     }
   }, [username]);
-
-  // async function fetchdata() {
-  //     // SQL Select items that the user inputted
-  //     const { data, error } = await supabase
-  //     .from('Items')
-  //     .select()
-  //     .eq('user', user)
-  //     console.log(data)
-  //     setPosts(data);
-  // }
-
-  //
   return (
     <div className="App">
       <table className={styles.retrievetable}>
@@ -57,13 +58,14 @@ export default function RetrievePage() {
             <th className={styles.retrieveth}>Item</th>
             <th className={styles.retrieveth}>Price</th>
             <th className={styles.retrieveth}>Quantity</th>
+            <th className={styles.retrieveth}>Approved</th>
           </tr>
         </thead>
       </table>
 
       {posts.map((post) => (
         // Post id passed in as string -> read the id
-        // No more duplicate key warning
+        // No more duplicate key warning]
         <div key={post.id}>
           <table className={styles.retrievetable}>
             <tbody>
@@ -71,6 +73,7 @@ export default function RetrievePage() {
                 <td className={styles.retrieveth}>{post.name}</td>
                 <td className={styles.retrieveth}> {post.price}</td>
                 <td className={styles.retrieveth}>{post.quantity}</td>
+                <td className={styles.retrieveth}>{IsApproved(post)}</td>
               </tr>
             </tbody>
           </table>
