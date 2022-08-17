@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import { supabase } from "../utils/supabaseClient.js";
 import styles from "../styles/Retrieve.module.css";
+import ApproveButton from "../components/approveButton.js";
 
 export default function FormApprovalPage() {
   const { data: session } = useSession();
@@ -19,6 +20,7 @@ export default function FormApprovalPage() {
     fetchdata();
   }, []);
 
+  //fetch rows
   const fetchdata = useCallback(async () => {
     const { data, error } = await supabase
       .from("Items")
@@ -28,27 +30,15 @@ export default function FormApprovalPage() {
     setPosts(data);
   }, []);
 
-  function setApproved(form) {
-    console.log("approving");
-    console.log(form);
-  }
+  //update row as approved
 
-  // async function fetchdata() {
-  //     // SQL Select items that the user inputted
-  //     const { data, error } = await supabase
-  //     .from('Items')
-  //     .select()
-  //     .eq('user', user)
-  //     console.log(data)
-  //     setPosts(data);
-  // }
-
-  //
   return (
     <div className="App">
       <table className={styles.retrievetable}>
         <thead>
           <tr>
+            <th className={styles.retrieveth}>Date</th>
+            <th className={styles.retrieveth}>Submitted By</th>
             <th className={styles.retrieveth}>Item</th>
             <th className={styles.retrieveth}>Price</th>
             <th className={styles.retrieveth}>Quantity</th>
@@ -56,25 +46,18 @@ export default function FormApprovalPage() {
           </tr>
         </thead>
       </table>
-
       {posts.map((post) => (
-        // Post id passed in as string -> read the id
-        // No more duplicate key warning
         <div key={post.id}>
           <table className={styles.retrievetable}>
             <tbody>
               <tr className={styles.itemRow}>
+                <td className={styles.retrieveth}>{post.date}</td>
+                <td className={styles.retrieveth}>{post.user}</td>
                 <td className={styles.retrieveth}>{post.name}</td>
                 <td className={styles.retrieveth}> {post.price}</td>
                 <td className={styles.retrieveth}>{post.quantity}</td>
                 <td className={styles.retrieveth}>
-                  <button
-                    className="btn btn-outline-info m-3"
-                    type="button"
-                    onClick={() => setApproved(post)}
-                  >
-                    Approve
-                  </button>
+                  <ApproveButton data={post} user={username} />
                 </td>
               </tr>
             </tbody>

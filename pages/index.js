@@ -71,19 +71,25 @@ function HomePage(session, router) {
           </div>
         )}
       </div>
-      
-        <div className="modal fade" id="formModal">
-          <div className="modal-dialog modal-md">
-            <div className="modal-content bg-dark">
-              <div className="modal-header border-bottom border-secondary">
-                <h5 className="modal-title" id="exampleModalLabel">Product Form</h5>
-                <button type="button" className="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-              </div>
-              <div className="modal-body">
-                <Form />
-              </div>
+
+      <div className="modal fade" id="formModal">
+        <div className="modal-dialog modal-md">
+          <div className="modal-content bg-dark">
+            <div className="modal-header border-bottom border-secondary">
+              <h5 className="modal-title" id="exampleModalLabel">
+                Product Form
+              </h5>
+              <button
+                type="button"
+                className="btn-close btn-close-white"
+                data-bs-dismiss="modal"
+              ></button>
+            </div>
+            <div className="modal-body">
+              <Form />
             </div>
           </div>
+        </div>
       </div>
     </>
   );
