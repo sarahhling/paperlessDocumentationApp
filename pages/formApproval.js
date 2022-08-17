@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import { supabase } from "../utils/supabaseClient.js";
 import styles from "../styles/Retrieve.module.css";
+import ApproveButton from "../components/approveButton.js";
 
 export default function FormApprovalPage() {
   const { data: session } = useSession();
@@ -19,6 +20,7 @@ export default function FormApprovalPage() {
     fetchdata();
   }, []);
 
+  //fetch rows
   const fetchdata = useCallback(async () => {
     const { data, error } = await supabase
       .from("Items")
@@ -28,27 +30,19 @@ export default function FormApprovalPage() {
     setPosts(data);
   }, []);
 
-  async function setApproved(form) {
+  //update row as approved
+  async function approveRow(form) {
+    console.log("updating");
     const { data, error } = await supabase
       .from("Items")
-      .update({ approved: true })
+      .update({ approved: true, approved_by: username })
       .match({ id: form.id });
     if (error || data.length == 0) {
       alert("Could not update entry");
+      //do a popup instead
     }
   }
 
-  // async function fetchdata() {
-  //     // SQL Select items that the user inputted
-  //     const { data, error } = await supabase
-  //     .from('Items')
-  //     .select()
-  //     .eq('user', user)
-  //     console.log(data)
-  //     setPosts(data);
-  // }
-
-  //
   return (
     <div className="App">
       <table className={styles.retrievetable}>
@@ -65,8 +59,6 @@ export default function FormApprovalPage() {
       </table>
 
       {posts.map((post) => (
-        // Post id passed in as string -> read the id
-        // No more duplicate key warning
         <div key={post.id}>
           <table className={styles.retrievetable}>
             <tbody>
@@ -77,13 +69,7 @@ export default function FormApprovalPage() {
                 <td className={styles.retrieveth}> {post.price}</td>
                 <td className={styles.retrieveth}>{post.quantity}</td>
                 <td className={styles.retrieveth}>
-                  <button
-                    className="btn btn-outline-info m-3"
-                    type="button"
-                    onClick={() => setApproved(post)}
-                  >
-                    Approve
-                  </button>
+                  <ApproveButton buttonFunction={approveRow(post)} />
                 </td>
               </tr>
             </tbody>
