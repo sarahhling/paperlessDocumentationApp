@@ -37,30 +37,30 @@ export default function FormApprovalPage() {
       <div className="col-md-12 pb-4 text-center">
         <h1>Form Approval</h1>
       </div>
-      <table className={styles.retrievetable}>
+      <table className={styles.retrieveTable}>
         <thead>
           <tr>
-            <th className={styles.retrieveth}>Date</th>
-            <th className={styles.retrieveth}>Submitted By</th>
-            <th className={styles.retrieveth}>Item</th>
-            <th className={styles.retrieveth}>Price</th>
-            <th className={styles.retrieveth}>Quantity</th>
-            <th className={styles.retrieveth}>Approve</th>
+            <th className={styles.retrieveTableHead}>Date</th>
+            <th className={styles.retrieveTableHead}>Submitted By</th>
+            <th className={styles.retrieveTableHead}>Item</th>
+            <th className={styles.retrieveTableHead}>Price</th>
+            <th className={styles.retrieveTableHead}>Quantity</th>
+            <th className={styles.retrieveTableHead}>Approve</th>
           </tr>
         </thead>
       </table>
 
       {posts.map((post) => (
         <div key={post.id}>
-          <table className={styles.retrievetable}>
+          <table className={styles.retrieveTable}>
             <tbody>
               <tr className={styles.itemRow}>
-                <td className={styles.retrieveth}>{post.date}</td>
-                <td className={styles.retrieveth}>{post.user}</td>
-                <td className={styles.retrieveth}>{post.name}</td>
-                <td className={styles.retrieveth}> {post.price}</td>
-                <td className={styles.retrieveth}>{post.quantity}</td>
-                <td className={styles.retrieveth}>
+                <td className={styles.retrieveTableData}>{post.date}</td>
+                <td className={styles.retrieveTableData}>{post.user}</td>
+                <td className={styles.retrieveTableData}>{post.name}</td>
+                <td className={styles.retrieveTableData}> {post.price}</td>
+                <td className={styles.retrieveTableData}>{post.quantity}</td>
+                <td className={styles.retrieveTableData}>
                   <div style={{ display: "inline-block" }}>
                     <ApprovalButtons data={post} user={username} />
                   </div>
