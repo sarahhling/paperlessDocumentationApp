@@ -39,7 +39,7 @@ export default function FormApprovalPage() {
       </div>
       <table className={styles.retrieveTable}>
         <thead>
-          <tr>
+          <tr className={styles.retrieveTableRow}>
             <th className={styles.retrieveTableHead}>Date</th>
             <th className={styles.retrieveTableHead}>Submitted By</th>
             <th className={styles.retrieveTableHead}>Item</th>
