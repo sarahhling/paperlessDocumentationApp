@@ -30,14 +30,36 @@ function FormPage(username, register, handleSubmit, errors, reset) {
 
   const onSubmit = async (data, e) => {
     data["user"] = current_user;
-    console.log(data);
-    let {error: submitError} = await supabase.from("Items").insert(data);
+
+    // if submission hasn't been checked,
+    // check in Supabase if there is already a form submission with the same "date" in the Items table
+    if (formState?.type != "warning" || data.date != formState?.message) {
+      const items = await supabase
+        .from("Items")
+        .select("date")
+        .match({ date: data.date });
+
+      if (items.body.length > 0) {
+        setFormState({
+          type: "warning",
+          message: data.date,
+        });
+        console.log(
+          "Form with the same date already exists",
+          items.body.length,
+          "times"
+        );
+        return;
+      }
+    }
+
+    let { error: submitError } = await supabase.from("Items").insert(data);
     if (submitError) {
       console.log("Upload/Submit Error: ", submitError);
-      setFormState({ type: 'error', submitError });
+      setFormState({ type: "error", submitError });
       //throw submitError;
     } else {
-      setFormState({ type: 'success' });
+      setFormState({ type: "success" });
     }
     reset();
   };
@@ -50,11 +72,23 @@ function FormPage(username, register, handleSubmit, errors, reset) {
     <div className="row justify-content-center my-5">
       <div className="col-lg-8">
         <form onSubmit={handleSubmit(onSubmit, onError)}>
-          {formState?.type === 'error' && 
-          (<div className="alert alert-danger" role="alert">Cannot submit form to server, please try again later.</div>)}
-          {formState?.type === 'success' && 
-          (<div className="alert alert-success" role="alert">Form submission successful!</div>)}
-          
+          {formState?.type === "warning" && (
+            <div className="alert alert-warning" role="alert">
+              A submission with the date "{formState.message}" already exists.
+              Click Submit again to confirm & continue.
+            </div>
+          )}
+          {formState?.type === "error" && (
+            <div className="alert alert-danger" role="alert">
+              Cannot submit form to server, please try again later.
+            </div>
+          )}
+          {formState?.type === "success" && (
+            <div className="alert alert-success" role="alert">
+              Form submission successful!
+            </div>
+          )}
+
           <label className="form-label" htmlFor="date">
             Date
           </label>
