@@ -11,15 +11,36 @@ export default function RetrievePage() {
 
   function IsApproved(props) {
     const isApproved = props.approved;
-    const yesStyle = { color: 'green'};
-    const noStyle = {color: 'red'}
+    const yesStyle = { size:'12px', color: 'green'};
+    const noStyle = {color: 'red'};
+    const nullStyle = {color: 'grey'};
+
     if (isApproved) {
-      return <h3 style={ yesStyle }>YES</h3>
+      return <p style={ yesStyle }>Approved</p>
+    }
+
+    else if (!isApproved) {
+      return <p style={ noStyle }>Rejected</p>
+      
+    } else {
+      
+    } {
+      return <p style={ nullStyle }>Pending</p>
+    }
+  }
+
+  // Converts the null values in reviewed_by column to text
+  function ReviewedBy(props) {
+    const isReviewedByNull = props.reviewed_by;
+
+    if (isReviewedByNull == null){
+      return "N/A";
     }
 
     else {
-      return <h3 style={ noStyle }>NO</h3>
+      return isReviewedByNull;
     }
+
   }
 
   useEffect(() => {
@@ -52,13 +73,14 @@ export default function RetrievePage() {
   }, [username]);
   return (
     <div className="App">
-      <table className={styles.retrievetable}>
+      <table className={styles.retrieveTable}>
         <thead>
           <tr>
-            <th className={styles.retrieveth}>Item</th>
-            <th className={styles.retrieveth}>Price</th>
-            <th className={styles.retrieveth}>Quantity</th>
-            <th className={styles.retrieveth}>Approved</th>
+            <th className={styles.retrieveTableHead}>Item</th>
+            <th className={styles.retrieveTableHead}>Price</th>
+            <th className={styles.retrieveTableHead}>Quantity</th>
+            <th className={styles.retrieveTableHead}>Status</th>
+            <th className={styles.retrieveTableHead}>Reviewed By</th>
           </tr>
         </thead>
       </table>
@@ -67,13 +89,14 @@ export default function RetrievePage() {
         // Post id passed in as string -> read the id
         // No more duplicate key warning]
         <div key={post.id}>
-          <table className={styles.retrievetable}>
+          <table className={styles.retrieveTable}>
             <tbody>
               <tr className={styles.itemRow}>
-                <td className={styles.retrieveth}>{post.name}</td>
-                <td className={styles.retrieveth}> {post.price}</td>
-                <td className={styles.retrieveth}>{post.quantity}</td>
-                <td className={styles.retrieveth}>{IsApproved(post)}</td>
+                <td className={styles.retrieveTableData}>{post.name}</td>
+                <td className={styles.retrieveTableData}> {post.price}</td>
+                <td className={styles.retrieveTableData}>{post.quantity}</td>
+                <td className={styles.retrieveTableData}>{IsApproved(post)}</td>
+                <td className={styles.retrieveTableData}>{ReviewedBy(post)}</td>
               </tr>
             </tbody>
           </table>
