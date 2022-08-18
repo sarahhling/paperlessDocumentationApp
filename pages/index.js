@@ -41,7 +41,7 @@ function HomePage(session, router) {
             type="button"
             onClick={() => router.push("/formApproval")}
           >
-            Approve Forms
+            Verify Forms
           </button>
         ) : (
           <button

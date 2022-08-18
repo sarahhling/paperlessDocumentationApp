@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import { supabase } from "../utils/supabaseClient.js";
 import styles from "../styles/Retrieve.module.css";
-import ApproveButton from "../components/approveButton.js";
+import ApprovalButtons from "../components/approvalButtons.js";
 
 export default function FormApprovalPage() {
   const { data: session } = useSession();
@@ -20,12 +20,12 @@ export default function FormApprovalPage() {
     fetchdata();
   }, []);
 
-  //fetch rows
+  //fetch rows move inside of useeffect at top?
   const fetchdata = useCallback(async () => {
     const { data, error } = await supabase
       .from("Items")
       .select()
-      .filter("approved", "in", '("false")')
+      .is("approved", null)
       .order("user", { ascending: true });
     setPosts(data);
   }, []);
@@ -34,6 +34,9 @@ export default function FormApprovalPage() {
 
   return (
     <div className="App">
+      <div className="col-md-12 pb-4 text-center">
+        <h1>Form Approval</h1>
+      </div>
       <table className={styles.retrievetable}>
         <thead>
           <tr>
@@ -46,6 +49,7 @@ export default function FormApprovalPage() {
           </tr>
         </thead>
       </table>
+
       {posts.map((post) => (
         <div key={post.id}>
           <table className={styles.retrievetable}>
@@ -57,7 +61,9 @@ export default function FormApprovalPage() {
                 <td className={styles.retrieveth}> {post.price}</td>
                 <td className={styles.retrieveth}>{post.quantity}</td>
                 <td className={styles.retrieveth}>
-                  <ApproveButton data={post} user={username} />
+                  <div style={{ display: "inline-block" }}>
+                    <ApprovalButtons data={post} user={username} />
+                  </div>
                 </td>
               </tr>
             </tbody>
