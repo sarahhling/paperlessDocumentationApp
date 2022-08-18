@@ -9,6 +9,7 @@ export default function RetrievePage() {
   const [posts, setPosts] = useState([]);
   const [username, setUsername] = useState();
 
+  // Changes tye styling and status for the approved column
   function IsApproved(props) {
     const isApproved = props.approved;
     const yesStyle = { size:'12px', color: 'green'};
@@ -40,8 +41,8 @@ export default function RetrievePage() {
     else {
       return isReviewedByNull;
     }
-
   }
+  
 
   useEffect(() => {
     if (session) {
@@ -75,7 +76,7 @@ export default function RetrievePage() {
     <div className="App">
       <table className={styles.retrieveTable}>
         <thead>
-          <tr>
+          <tr className={styles.retrieveTableRow}>
             <th className={styles.retrieveTableHead}>Item</th>
             <th className={styles.retrieveTableHead}>Price</th>
             <th className={styles.retrieveTableHead}>Quantity</th>
