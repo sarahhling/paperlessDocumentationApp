@@ -23,7 +23,6 @@ export default function ApprovalButtons({ data, user }) {
       .match({ id: form.id });
     if (error || data.length == 0) {
       alert("Could not update entry");
-      //do a popup instead
     } else {
       setApproveButtonText("Approved");
       setApproveButtonColor("btn-outline-success");
@@ -40,7 +39,6 @@ export default function ApprovalButtons({ data, user }) {
       .match({ id: form.id });
     if (error || data.length == 0) {
       alert("Could not update entry");
-      //do a popup instead
     } else {
       setRejectButtonText("Rejected");
       setRejectButtonColor("btn-outline-danger");
@@ -72,12 +70,9 @@ export default function ApprovalButtons({ data, user }) {
       </button>
 
       <div className="modal fade" id={`rejectModal${data.id}`}>
-        <div className="modal-dialog modal-md">
+        <div className="modal-dialog modal-dialog-centered modal-md">
           <div className="modal-content bg-dark">
             <div className="modal-header border-bottom border-secondary">
-              <h5 className="modal-title" id="exampleModalLabel">
-                Form Rejection
-              </h5>
               <button
                 type="button"
                 className="btn-close btn-close-white"
@@ -85,16 +80,20 @@ export default function ApprovalButtons({ data, user }) {
               ></button>
             </div>
             <div className="modal-body">
-              <label htmlFor="comment">Reason for Rejection:</label>
-              <input
-                className="mb-4"
-                type="text"
-                id="comment"
-                name="comment"
-                value={comment}
-                onChange={handleChange}
-                required
-              />
+              <div className="col-md-12 ">
+                <label htmlFor="comment">Reason for Rejection:</label>
+              </div>
+              <div className="col-md-12 text-center mt-3">
+                <textarea
+                  type="text"
+                  id="comment"
+                  name="comment"
+                  cols="50"
+                  value={comment}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
               <button
                 className={`btn btn-outline-danger m-3`}
                 type="button"
