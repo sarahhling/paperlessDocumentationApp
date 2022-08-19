@@ -18,7 +18,7 @@ export default function FormApprovalPage() {
   // Interdeterministic
   useEffect(() => {
     fetchdata();
-  }, []);
+  }, [username]);
 
   //fetch rows move inside of useeffect at top?
   const fetchdata = useCallback(async () => {
