@@ -28,7 +28,7 @@ export default function FormApprovalPage() {
       .is("approved", null)
       .order("user", { ascending: true });
     setPosts(data);
-  }, []);
+  }, [username]);
 
   //update row as approved
 
