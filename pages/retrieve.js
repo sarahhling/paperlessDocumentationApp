@@ -20,14 +20,13 @@ export default function RetrievePage() {
       return <p style={ yesStyle }>Approved</p>
     }
 
-    else if (!isApproved) {
+    else if (isApproved == false) {
       return <p style={ noStyle }>Rejected</p>
       
     } else {
-      
-    } {
       return <p style={ nullStyle }>Pending</p>
     }
+      
   }
 
   // Converts the null values in reviewed_by column to text
