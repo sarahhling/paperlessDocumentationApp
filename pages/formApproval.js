@@ -17,18 +17,18 @@ export default function FormApprovalPage() {
 
   // Interdeterministic
   useEffect(() => {
+    const fetchdata = async () => {
+      const { data, error } = await supabase
+        .from("Items")
+        .select()
+        .is("approved", null)
+        .order("user", { ascending: true });
+      setPosts(data);
+    };
     fetchdata();
-  }, [username]);
+  }, []);
 
   //fetch rows move inside of useeffect at top?
-  const fetchdata = useCallback(async () => {
-    const { data, error } = await supabase
-      .from("Items")
-      .select()
-      .is("approved", null)
-      .order("user", { ascending: true });
-    setPosts(data);
-  }, [username]);
 
   //update row as approved
 
