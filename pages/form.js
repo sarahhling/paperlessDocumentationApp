@@ -74,8 +74,8 @@ function FormPage(username, register, handleSubmit, errors, reset) {
         <form onSubmit={handleSubmit(onSubmit, onError)}>
           {formState?.type === "warning" && (
             <div className="alert alert-warning" role="alert">
-              A submission with the date "{formState.message}" already exists.
-              Click Submit again to confirm & continue.
+              A submission with the date &quot;{formState.message}&quot; already
+              exists. Click Submit again to confirm & continue.
             </div>
           )}
           {formState?.type === "error" && (
