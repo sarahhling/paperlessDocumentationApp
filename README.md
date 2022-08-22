@@ -20,6 +20,11 @@ Or access it here [https://paperless-documentation-app.vercel.app](https://paper
 - remove useSession if middleware implemented
 - unauthorized access to /admin should redirect to /
 - create a login homepage for logged in users
-- pagination for retrieval columns, either next page or load more (tumblr/twitter style)
+- pagination/filtering/sorting for retrieval columns, either next page or load more (tumblr/twitter style)
 - ability to unapprove a form (ie an undo)
 - prevent rejection submission without comment
+- use bcrypt to encrypt passwords
+- form filtering, sorting, pagination
+- use SQL querying instead of supabase-js library
+- Multi Language support, theming, dark/light mode, accessibility
+- static page for Visual/Audio SOP/Training Material
